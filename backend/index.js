@@ -31,7 +31,19 @@ app.post("/upload", upload.single('product'), (req, res) => {
     })
 })
 
-mongoose.connect(process.env.DATABASE);
+// mongoose.connect(process.env.DATABASE);
+mongoose
+  .connect(process.env.DATABASE, {
+    useUnifiedTopology: true,
+    useNewUrlParser: true,
+  })
+  .then(() => {
+    console.log("Connection with database established");
+  })
+  .catch((e) => {
+    console.log(e.message);
+  });
+
 
 // MiddleWare
 const fetchuser = async (req, res, next) => {
